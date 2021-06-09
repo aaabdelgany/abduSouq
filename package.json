@@ -1,0 +1,33 @@
+{
+  "name": "abdusouq",
+  "version": "1.0.0",
+  "description": "MERN eCommerce",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaabdelgany/abduSouq.git"
+  },
+  "author": "Abdu Abdelgany",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaabdelgany/abduSouq/issues"
+  },
+  "homepage": "https://github.com/aaabdelgany/abduSouq#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.13",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.7"
+  }
+}
