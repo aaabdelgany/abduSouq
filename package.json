@@ -8,7 +8,9 @@
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "node backend/utils/seeder",
+    "seed:destroy": "node backend/utils/seeder -d"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,11 @@
   },
   "homepage": "https://github.com/aaabdelgany/abduSouq#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.13",
     "morgan": "^1.10.0"
   },
