@@ -20,11 +20,8 @@ userRouter.post('/new', async (req, res) => {
 
 userRouter.post('/login', async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  console.log(req.body.password);
-  console.log(user);
   try {
     const match = await bcrypt.compare(req.body.password, user.password);
-    console.log(user);
     const userForToken = {
       email: user.email,
       id: user._id,

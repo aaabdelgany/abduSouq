@@ -7,13 +7,16 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
   const login = async () => {
-    const jwt = await axios.post('/users/login', {
-      email: username,
-      password,
-    });
-    console.log(jwt);
-    window.localStorage.setItem('loggedIn', jwt);
-    history.push('/');
+    try {
+      const jwt = await axios.post('/users/login', {
+        email: username,
+        password,
+      });
+      window.localStorage.setItem('loggedIn', jwt);
+      history.push('/');
+    } catch (error) {
+      console.log('authentication error!');
+    }
   };
   return (
     <Form>
