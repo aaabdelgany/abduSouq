@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Message from '../components/Message';
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const history = useHistory();
   const login = async () => {
     try {
@@ -16,10 +18,13 @@ const LoginScreen = () => {
       history.push('/');
     } catch (error) {
       console.log('authentication error!');
+      setError('loginError');
+      setTimeout(() => setError(''), 5000);
     }
   };
   return (
     <Form>
+      <Message message={error} />
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
