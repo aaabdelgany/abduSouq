@@ -1,8 +1,38 @@
 import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Header = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const clearLog = () => {
+    dispatch({ type: 'LOGOUT' });
+    window.localStorage.removeItem('loggedIn');
+  };
+
+  const SignIn = () => {
+    if (user.name) {
+      return (
+        <LinkContainer to="/" onClick={clearLog}>
+          <Nav.Link>
+            <i className="fas fa-user"></i>
+            Sign out ({user.name})
+          </Nav.Link>
+        </LinkContainer>
+      );
+    } else {
+      return (
+        <LinkContainer to="/login">
+          <Nav.Link>
+            <i className="fas fa-user"></i>
+            Sign In
+          </Nav.Link>
+        </LinkContainer>
+      );
+    }
+  };
   return (
     <header>
       <Navbar bg="light" expand="lg">
@@ -18,11 +48,7 @@ const Header = () => {
                   <i className="fas fa-shopping-cart"></i>Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <i className="fas fa-user"></i>Sign In
-                </Nav.Link>
-              </LinkContainer>
+              <SignIn />
             </Nav>
           </Navbar.Collapse>
         </Container>

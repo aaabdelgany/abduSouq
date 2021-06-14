@@ -4,12 +4,14 @@ import './bootstrap.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import prodReducer from './redux/store.js';
+import prodReducer from './reducers/prodReducer';
+import userReducer from './reducers/userReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(prodReducer, composeWithDevTools());
+const reducers = combineReducers({ products: prodReducer, user: userReducer });
+const store = createStore(reducers, composeWithDevTools());
 
 ReactDOM.render(
   <Provider store={store}>

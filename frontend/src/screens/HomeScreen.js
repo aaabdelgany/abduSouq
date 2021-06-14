@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state);
+  const products = useSelector((state) => state.products);
 
   useEffect(() => {
     const fetchProds = async () => {

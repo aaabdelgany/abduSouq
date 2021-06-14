@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 const ProductScreen = ({ match }) => {
   const prod = useSelector((state) =>
-    state.find((p) => p._id === match.params.id)
+    state.products.find((p) => p._id === match.params.id)
   );
   return (
     <>

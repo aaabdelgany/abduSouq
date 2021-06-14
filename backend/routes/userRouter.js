@@ -31,9 +31,9 @@ userRouter.post('/login', async (req, res) => {
       process.env.TOKEN_SECRET
     );
     if (match) {
-      res.json({ accessToken, email: user.email });
+      res.status(200).send({ accessToken, email: user.email, name: user.name });
     } else {
-      res.json({ message: 'Invalid Credentials' });
+      res.status(401).json({ message: 'Invalid Credentials' });
     }
   } catch (error) {
     res.status(500).send({ error });
