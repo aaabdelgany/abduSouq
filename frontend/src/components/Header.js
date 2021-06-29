@@ -1,16 +1,24 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  
   const cart = useSelector((state)=>state.cart);
   const cartItems = cart.reduce((acc, item) => acc + item.qty, 0)
 
-  const dispatch = useDispatch();
-
-  const clearLog = () => {
+  useEffect(() => {
+  const loggedUserJSON = window.localStorage.getItem('loggedIn')
+  if(loggedUserJSON){
+    const data = JSON.parse(loggedUserJSON)
+    dispatch({type:'LOGIN',data:{name:data.name,isAdmin:data.isAdmin}})
+  }
+  }, []);
+    
+    const clearLog = () => {
     dispatch({ type: 'LOGOUT' });
     window.localStorage.removeItem('loggedIn');
   };
@@ -36,6 +44,18 @@ const Header = () => {
       );
     }
   };
+
+  const AddProd = () => {
+    return(
+      <LinkContainer to="/Add">
+      <Nav.Link>
+        <i className="fas fa-plus-square"></i>
+        Add Product
+      </Nav.Link>
+    </LinkContainer>
+    )
+  }
+
   return (
     <header>
       <Navbar bg="light" expand="lg">
@@ -46,6 +66,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              {user.isAdmin? AddProd() : null}
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fas fa-shopping-cart"></i>Cart ({cart.length===0 ? '' : cartItems})

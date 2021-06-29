@@ -18,7 +18,7 @@ const LoginScreen = () => {
         password,
       });
       window.localStorage.setItem('loggedIn', JSON.stringify(jwt.data));
-      const data = { name: jwt.data.name };
+      const data = { name: jwt.data.name,isAdmin:jwt.data.isAdmin};
       dispatch({ type: 'LOGIN', data });
       history.push('/');
     } catch (error) {
