@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state)=>state.cart);
+  const cartItems = cart.reduce((acc, item) => acc + item.qty, 0)
+
   const dispatch = useDispatch();
 
   const clearLog = () => {
@@ -45,7 +48,7 @@ const Header = () => {
             <Nav className="ms-auto">
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i>Cart
+                  <i className="fas fa-shopping-cart"></i>Cart ({cart.length===0 ? '' : cartItems})
                 </Nav.Link>
               </LinkContainer>
               <SignIn />

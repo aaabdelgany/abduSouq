@@ -8,9 +8,10 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import prodReducer from './reducers/prodReducer';
 import userReducer from './reducers/userReducer';
+import cartReducer from './reducers/cartReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const reducers = combineReducers({ products: prodReducer, user: userReducer });
+const reducers = combineReducers({ products: prodReducer, user: userReducer,cart: cartReducer});
 const store = createStore(reducers, composeWithDevTools());
 
 ReactDOM.render(

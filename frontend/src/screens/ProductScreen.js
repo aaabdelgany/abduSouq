@@ -2,12 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 
 const ProductScreen = ({ match }) => {
+  const dispatch = useDispatch()
   const prod = useSelector((state) =>
     state.products.find((p) => p._id === match.params.id)
   );
+
+  const addToCart = async (product) => {
+    await dispatch({type:'ADD',data:product})
+  }
+
   return (
     <>
       <Link className="btn btn-light my-3 " to="/">
@@ -57,7 +63,7 @@ const ProductScreen = ({ match }) => {
                 <Button
                   className="btn-block"
                   type="button"
-                  disabled={prod.countInStock === 0}
+                  disabled={prod.countInStock === 0} onClick={()=>addToCart(prod)}
                 >
                   Add to Cart
                 </Button>
