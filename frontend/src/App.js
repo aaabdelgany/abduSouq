@@ -6,9 +6,12 @@ import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import LoginScreen from './screens/LoginScreen';
 import CartScreen from './screens/CartScreen';
+import AddScreen from './screens/AddScreen';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
 
 function App() {
+  // const user = useSelector((state) => state.user);
   return (
     <Router>
       <div className="App">
@@ -19,6 +22,7 @@ function App() {
               <Route path="/products/:id" component={ProductScreen} />
               <Route path="/login" component={LoginScreen} />
               <Route path="/logout" component={HomeScreen} />
+              <Route path="/add" component={AddScreen} />
               <Route path="/cart" component={CartScreen} />
               <Route path="/" component={HomeScreen} />
             </Switch>

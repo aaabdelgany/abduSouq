@@ -1,12 +1,10 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
+
 import Product from '../models/product.js';
 
 const prodRouter = express.Router();
 
-//@desc fetch all prods
-//@route GET /api/products
-//@access Public
 prodRouter.get(
   '/',
   asyncHandler(async (req, res) => {
@@ -14,9 +12,6 @@ prodRouter.get(
     res.json(products);
   })
 );
-//@desc fetch product
-//@route GET /api/products/:id
-//@access Public
 prodRouter.get(
   '/:id',
   asyncHandler(async (req, res) => {
@@ -25,6 +20,19 @@ prodRouter.get(
       res.json(prod);
     } else {
       res.status(404).json({ error: 'product not found!' });
+    }
+  })
+);
+
+prodRouter.post(
+  '/addNew',
+  asyncHandler(async (req, res) => {
+    try {
+      const product = new Product({ ...req.body });
+      const newProd = await product.save();
+      res.json(newProd);
+    } catch (error) {
+      res.json({ error });
     }
   })
 );
