@@ -20,7 +20,10 @@ imageRouter.post(
   upload.single('image'),
   asyncHandler(async (req, res, next) => {
     const { file } = req;
-    if (file.detectedFileExtension !== '.jpg') {
+    if (
+      file.detectedFileExtension !== '.jpg' &&
+      file.detectedFileExtension !== '.jpeg'
+    ) {
       res.status(422).json({ error: 'Invalid File Type!' });
     } else {
       const fileName = `image${Math.floor(Math.random() * 10000)}${
@@ -30,7 +33,7 @@ imageRouter.post(
         file.stream,
         fs.createWriteStream(`${__dirname}/frontend/public/images/${fileName}`)
       );
-      res.send(fileName);
+      res.status(200).json({ image: `/images/${fileName}` });
     }
   })
 );
