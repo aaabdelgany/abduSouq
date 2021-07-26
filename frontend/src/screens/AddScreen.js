@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
 
 const AddScreen = () => {
   const [name, setName] = useState('');
@@ -14,7 +13,7 @@ const AddScreen = () => {
   const [image, setImage] = useState('');
 
   const history = useHistory();
-  const user = useSelector((state) => state.user);
+  const user = JSON.parse(window.localStorage.getItem('loggedIn'));
   if (!user.isAdmin) {
     history.push('/');
   }

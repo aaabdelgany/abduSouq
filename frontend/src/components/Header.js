@@ -48,6 +48,17 @@ const Header = () => {
     }
   };
 
+  const MyProds = () => {
+    return (
+      <LinkContainer to="/edit">
+        <Nav.Link>
+          <i className="fas fa-list"></i>
+          My Products
+        </Nav.Link>
+      </LinkContainer>
+    );
+  };
+
   const AddProd = () => {
     return (
       <LinkContainer to="/add">
@@ -70,6 +81,7 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               {user.isAdmin ? AddProd() : null}
+              {user.name ? MyProds() : null}
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fas fa-shopping-cart"></i>Cart (

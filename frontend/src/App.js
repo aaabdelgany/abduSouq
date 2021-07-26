@@ -7,6 +7,7 @@ import ProductScreen from './screens/ProductScreen';
 import LoginScreen from './screens/LoginScreen';
 import CartScreen from './screens/CartScreen';
 import AddScreen from './screens/AddScreen';
+import MyProductsScreen from './screens/MyProductsScreen';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { useSelector } from 'react-redux';
 
@@ -24,6 +25,7 @@ function App() {
               <Route path="/logout" component={HomeScreen} />
               <Route path="/add" component={AddScreen} />
               <Route path="/cart" component={CartScreen} />
+              <Route path="/edit" component={MyProductsScreen} />
               <Route path="/" component={HomeScreen} />
             </Switch>
           </Container>

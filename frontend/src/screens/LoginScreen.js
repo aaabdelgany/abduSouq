@@ -21,7 +21,6 @@ const LoginScreen = () => {
       const data = {
         name: jwt.data.name,
         isAdmin: jwt.data.isAdmin,
-        id: jwt.data.id,
       };
       dispatch({ type: 'LOGIN', data });
       history.push('/');
