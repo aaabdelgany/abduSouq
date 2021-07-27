@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 import {
   Row,
   Col,
@@ -9,19 +10,49 @@ import {
   Button,
   Form,
 } from 'react-bootstrap';
-import Message from '../components/Message';
 import { useSelector, useDispatch } from 'react-redux';
 
 const MyProductsScreen = () => {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const user = JSON.parse(window.localStorage.getItem('loggedIn')).id;
   const myProds = useSelector((state) =>
     state.products.filter((prod) => prod.user === user)
   );
-  console.log(myProds);
+
+  if (myProds.length === 0) {
+    history.push('/');
+  }
+
+  const newPrice = async (e, prod) => {
+    const newProd = prod;
+    if (newProd.price[0] === '$') {
+      newProd.price = e.slice(1);
+    } else {
+      newProd.price = e;
+    }
+    try {
+      await axios.post('/api/products/update', newProd);
+      dispatch({ type: 'MODIFY', data: newProd });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const newStock = async (e, prod) => {
+    const newProd = prod;
+    newProd.countInStock = e;
+    try {
+      await axios.post('/api/products/update', newProd);
+      dispatch({ type: 'MODIFY', data: newProd });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Row>
-      <Col md={8}>
+      <Col md={12}>
         <h1>My Products</h1>
         <ListGroup variant="flush">
           {myProds.map((item) => (
@@ -33,24 +64,19 @@ const MyProductsScreen = () => {
                 <Col md={3}>
                   <Link to={`/product/${item.product}`}>{item.name}</Link>
                 </Col>
-                <Col md={2}>${item.price}</Col>
                 <Col md={2}>
                   <Form.Control
-                    as="select"
                     value={item.qty}
-                    onChange={(e) =>
-                      dispatch({
-                        type: 'UPDATE',
-                        data: { id: item._id, qty: Number(e.target.value) },
-                      })
-                    }
-                  >
-                    {[...Array(item.countInStock).keys()].map((x) => (
-                      <option key={x + 1} value={x + 1}>
-                        {x + 1}
-                      </option>
-                    ))}
-                  </Form.Control>
+                    defaultValue={`$${item.price}`}
+                    onChange={(e) => newPrice(e.target.value, item)}
+                  ></Form.Control>
+                </Col>
+                <Col md={2}>
+                  <Form.Control
+                    value={item.qty}
+                    defaultValue={item.countInStock}
+                    onChange={(e) => newStock(e.target.value, item)}
+                  ></Form.Control>
                 </Col>
                 <Col md={2}>
                   <Button

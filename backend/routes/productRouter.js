@@ -1,6 +1,5 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
-
 import Product from '../models/product.js';
 
 const prodRouter = express.Router();
@@ -37,4 +36,21 @@ prodRouter.post(
   })
 );
 
+prodRouter.post(
+  '/update',
+  asyncHandler(async (req, res) => {
+    try {
+      const product = new Product({ ...req.body });
+      const updatedProd = await Product.findOneAndUpdate(
+        { _id: product._id },
+        product,
+        { new: true }
+      );
+      await updatedProd.save();
+      res.json(updatedProd);
+    } catch (error) {
+      res.json({ error });
+    }
+  })
+);
 export default prodRouter;
