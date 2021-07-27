@@ -10,7 +10,6 @@ const ProductScreen = ({ match }) => {
   const prod = useSelector((state) =>
     state.products.find((p) => p._id === match.params.id)
   );
-
   if (typeof prod == 'undefined') {
     history.push('/');
   }
