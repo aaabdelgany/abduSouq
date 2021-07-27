@@ -1,20 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-} from 'react-bootstrap';
+import { Row, Col, Image, ListGroup, Button, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 const MyProductsScreen = () => {
   const history = useHistory();
-
   const dispatch = useDispatch();
   const user = JSON.parse(window.localStorage.getItem('loggedIn')).id;
   const myProds = useSelector((state) =>
@@ -27,14 +18,15 @@ const MyProductsScreen = () => {
 
   const newPrice = async (e, prod) => {
     const newProd = prod;
-    if (newProd.price[0] === '$') {
-      newProd.price = e.slice(1);
+    if (e[0] === '$') {
+      newProd.price = Number(e.slice(1));
     } else {
-      newProd.price = e;
+      newProd.price = Number(e);
     }
+    console.log(newProd);
     try {
-      await axios.post('/api/products/update', newProd);
-      dispatch({ type: 'MODIFY', data: newProd });
+      const ok = await axios.post('/api/products/update', newProd);
+      console.log(ok.data);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +37,6 @@ const MyProductsScreen = () => {
     newProd.countInStock = e;
     try {
       await axios.post('/api/products/update', newProd);
-      dispatch({ type: 'MODIFY', data: newProd });
     } catch (error) {
       console.log(error);
     }
@@ -68,14 +59,14 @@ const MyProductsScreen = () => {
                   <Form.Control
                     value={item.qty}
                     defaultValue={`$${item.price}`}
-                    onChange={(e) => newPrice(e.target.value, item)}
+                    onBlur={(e) => newPrice(e.target.value, item)}
                   ></Form.Control>
                 </Col>
                 <Col md={2}>
                   <Form.Control
                     value={item.qty}
                     defaultValue={item.countInStock}
-                    onChange={(e) => newStock(e.target.value, item)}
+                    onBlur={(e) => newStock(e.target.value, item)}
                   ></Form.Control>
                 </Col>
                 <Col md={2}>
