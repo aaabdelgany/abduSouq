@@ -55,28 +55,19 @@ const MyProductsScreen = () => {
                 <Col md={3}>
                   <Link to={`/product/${item.product}`}>{item.name}</Link>
                 </Col>
-                <Col md={2}>
+                <Col md={3}>
                   <Form.Control
                     value={item.qty}
                     defaultValue={`$${item.price}`}
                     onBlur={(e) => newPrice(e.target.value, item)}
                   ></Form.Control>
                 </Col>
-                <Col md={2}>
+                <Col md={3}>
                   <Form.Control
                     value={item.qty}
                     defaultValue={item.countInStock}
                     onBlur={(e) => newStock(e.target.value, item)}
                   ></Form.Control>
-                </Col>
-                <Col md={2}>
-                  <Button
-                    type="button"
-                    variant="light"
-                    onClick={() => dispatch({ type: 'REMOVE', data: item._id })}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </Button>
                 </Col>
               </Row>
             </ListGroup.Item>
