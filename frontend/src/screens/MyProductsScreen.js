@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { Row, Col, Image, ListGroup, Button, Form } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { Row, Col, Image, ListGroup, Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 const MyProductsScreen = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const user = JSON.parse(window.localStorage.getItem('loggedIn')).id;
   const myProds = useSelector((state) =>
     state.products.filter((prod) => prod.user === user)

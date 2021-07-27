@@ -1,18 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ProductScreen = ({ match }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
   const prod = useSelector((state) =>
     state.products.find((p) => p._id === match.params.id)
   );
 
-  const addToCart = async (product) => {
-    await dispatch({type:'ADD',data:product})
+  if (typeof prod == 'undefined') {
+    history.push('/');
   }
+  const addToCart = async (product) => {
+    await dispatch({ type: 'ADD', data: product });
+  };
 
   return (
     <>
@@ -63,7 +67,8 @@ const ProductScreen = ({ match }) => {
                 <Button
                   className="btn-block"
                   type="button"
-                  disabled={prod.countInStock === 0} onClick={()=>addToCart(prod)}
+                  disabled={prod.countInStock === 0}
+                  onClick={() => addToCart(prod)}
                 >
                   Add to Cart
                 </Button>
