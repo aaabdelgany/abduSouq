@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Col, Form, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
-
+import Message from '../components/Message';
 const AddScreen = () => {
+  const [message, setMessage] = useState('');
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
@@ -45,70 +46,75 @@ const AddScreen = () => {
     try {
       const { data } = await axios.post('/api/products/addNew', product);
       console.log(data);
+      setMessage('successfulAdd');
+      setTimeout(() => setMessage(''), 15000);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Form action="#" onSubmit={prodHandler}>
-      <Form.Row>
-        <Form.Group controlId="ProductName">
-          <Form.Label>Product Name:</Form.Label>
+    <>
+      <Message message={message} />
+      <Form action="#" onSubmit={prodHandler}>
+        <Form.Row>
+          <Form.Group controlId="ProductName">
+            <Form.Label>Product Name:</Form.Label>
+            <Form.Control
+              required
+              onChange={(event) => setName(event.target.value)}
+            />
+          </Form.Group>
+        </Form.Row>
+        <Row>
+          <Col>
+            <Form.Label>Brand:</Form.Label>
+            <Form.Control
+              required
+              onChange={(event) => setBrand(event.target.value)}
+            />
+          </Col>
+          <Col>
+            <Form.Label>Category:</Form.Label>
+            <Form.Control
+              required
+              onChange={(event) => setCategory(event.target.value)}
+            />
+          </Col>
+        </Row>
+        <Form.Group controlId="DescrArea">
+          <Form.Label>Description:</Form.Label>
           <Form.Control
-            required
-            onChange={(event) => setName(event.target.value)}
+            as="textarea"
+            rows={3}
+            onChange={(event) => setDesc(event.target.value)}
           />
         </Form.Group>
-      </Form.Row>
-      <Row>
-        <Col>
-          <Form.Label>Brand:</Form.Label>
-          <Form.Control
-            required
-            onChange={(event) => setBrand(event.target.value)}
-          />
-        </Col>
-        <Col>
-          <Form.Label>Category:</Form.Label>
-          <Form.Control
-            required
-            onChange={(event) => setCategory(event.target.value)}
-          />
-        </Col>
-      </Row>
-      <Form.Group controlId="DescrArea">
-        <Form.Label>Description:</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          onChange={(event) => setDesc(event.target.value)}
-        />
-      </Form.Group>
-      <Row></Row>
-      <Row>
-        <Form.Group as={Col} controlId="formGridPrice">
-          <Form.Label>Price:</Form.Label>
-          <Form.Control
-            required
-            onChange={(event) => setPrice(event.target.value)}
-          />
+        <Row></Row>
+        <Row>
+          <Form.Group as={Col} controlId="formGridPrice">
+            <Form.Label>Price:</Form.Label>
+            <Form.Control
+              required
+              onChange={(event) => setPrice(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group as={Col} controlId="formStock">
+            <Form.Label>Count in Stock:</Form.Label>
+            <Form.Control
+              required
+              defaultValue="1"
+              onChange={(event) => setStock(event.target.value)}
+            />
+          </Form.Group>
+        </Row>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Product Image</Form.Label>
+          <Form.Control type="file" onChange={uploadHandler} />
         </Form.Group>
-        <Form.Group as={Col} controlId="formStock">
-          <Form.Label>Count in Stock:</Form.Label>
-          <Form.Control
-            required
-            defaultValue="1"
-            onChange={(event) => setStock(event.target.value)}
-          />
-        </Form.Group>
-      </Row>
-      <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label>Product Image</Form.Label>
-        <Form.Control type="file" onChange={uploadHandler} />
-      </Form.Group>
-      <Button type="submit">Add Product</Button>
-    </Form>
+        <Button type="submit">Add Product</Button>
+      </Form>
+    </>
   );
 };
 
