@@ -3,13 +3,43 @@ import { Link, useHistory } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useSelector, useDispatch } from 'react-redux';
-
+import axios from 'axios';
 const ProductScreen = ({ match }) => {
+  const user = JSON.parse(window.localStorage.getItem('loggedIn'));
   const dispatch = useDispatch();
   const history = useHistory();
+
   const prod = useSelector((state) =>
     state.products.find((p) => p._id === match.params.id)
   );
+  const submitReview = async (reviewValue) => {
+    const reviewItem = { id: user.id, reviewValue };
+    let rating =
+      (prod.rating * prod.numReviews + reviewValue) / (prod.numReviews + 1);
+    let numReviews = prod.numReviews + 1;
+    const reviews = prod.reviews.filter((review) => review.id !== user.id);
+    console.log(reviews);
+    console.log(prod.reviews);
+    if (reviews.length < prod.reviews.length) {
+      const oldVal = prod.reviews.find((rev) => rev.id === user.id);
+      rating = (rating * numReviews - oldVal.reviewValue) / (numReviews - 1);
+      numReviews = numReviews - 1;
+    }
+    reviews.push(reviewItem);
+    const newProd = {
+      ...prod,
+      rating,
+      numReviews,
+      reviews,
+    };
+
+    try {
+      const modProd = await axios.post('/api/products/update', newProd);
+      dispatch({ type: 'MODIFY', data: modProd.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (typeof prod == 'undefined') {
     history.push('/');
   }
@@ -33,7 +63,11 @@ const ProductScreen = ({ match }) => {
               <h3>{prod.name}</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Rating value={prod.rating} numReviews={prod.numReviews} />
+              <Rating
+                rating={prod.rating}
+                numReviews={prod.numReviews}
+                reviewFunc={submitReview}
+              />
             </ListGroup.Item>
             <ListGroup.Item>Price: $ {prod.price}</ListGroup.Item>
             <ListGroup.Item>Description: {prod.description}</ListGroup.Item>

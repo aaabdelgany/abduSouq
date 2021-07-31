@@ -1,53 +1,58 @@
 import React from 'react';
 
-const Rating = ({ value, numReviews }) => {
+const Rating = ({ rating, numReviews, reviewFunc }) => {
   return (
     <div className="rating">
       <span>
         <i
           className={
-            value >= 1
+            rating >= 1
               ? 'fas fa-star'
-              : value >= 0.5
+              : rating >= 0.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
+          onClick={() => reviewFunc(1)}
         ></i>
         <i
           className={
-            value >= 2
+            rating >= 2
               ? 'fas fa-star'
-              : value >= 1.5
+              : rating >= 1.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
+          onClick={() => reviewFunc(2)}
         ></i>
         <i
           className={
-            value >= 3
+            rating >= 3
               ? 'fas fa-star'
-              : value >= 2.5
+              : rating >= 2.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
+          onClick={() => reviewFunc(3)}
         ></i>
         <i
           className={
-            value >= 4
+            rating >= 4
               ? 'fas fa-star'
-              : value >= 3.5
+              : rating >= 3.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
+          onClick={() => reviewFunc(4)}
         ></i>
         <i
           className={
-            value >= 5
+            rating >= 5
               ? 'fas fa-star'
-              : value >= 4.5
+              : rating >= 4.5
               ? 'fas fa-star-half-alt'
               : 'far fa-star'
           }
+          onClick={() => reviewFunc(5)}
         ></i>
       </span>
       <span>{numReviews && numReviews} reviews </span>

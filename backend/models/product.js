@@ -4,9 +4,8 @@ const { Schema } = mongoose;
 
 const reviewSchema = new Schema(
   {
-    name: { type: String, required: true },
-    rating: { type: Number, required: true },
-    comment: { type: String, required: true },
+    id: { type: String, required: true },
+    reviewValue: { type: Number, required: true },
   },
   {
     timestamps: true,
