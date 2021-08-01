@@ -36,12 +36,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static('./build'));
-//   console.log(path.join(__dirname, 'backend/build', 'index.html'));
-//   app.get('*', (req, res) =>
-//     res.sendFile(path.resolve(__dirname, 'backend/build', 'index.html'))
-//   );
-// }
 
 app.listen(PORT, console.log(`Server running in ${MODE} on port ${PORT}`));
