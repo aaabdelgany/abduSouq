@@ -13,7 +13,7 @@ const HomeScreen = () => {
       dispatch({ type: 'INIT', data });
     };
     fetchProds();
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <h1>Latest Products</h1>

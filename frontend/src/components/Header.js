@@ -19,7 +19,7 @@ const Header = () => {
         data: { name: data.name, isAdmin: data.isAdmin },
       });
     }
-  }, []);
+  }, [dispatch]);
 
   const clearLog = () => {
     dispatch({ type: 'LOGOUT' });
