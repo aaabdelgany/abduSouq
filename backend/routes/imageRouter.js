@@ -7,6 +7,7 @@ import { promisify } from 'util';
 import stream from 'stream';
 import path from 'path';
 const __dirname = path.resolve();
+console.log(`${__dirname}/frontend/public/images/`);
 const imageRouter = express.Router();
 const pipeline = promisify(stream.pipeline);
 
@@ -29,10 +30,12 @@ imageRouter.post(
       const fileName = `image${Math.floor(Math.random() * 10000)}${
         file.detectedFileExtension
       }`;
+      console.log('test');
       await pipeline(
         file.stream,
         fs.createWriteStream(`${__dirname}/frontend/public/images/${fileName}`)
       );
+      console.log('test2');
       res.status(200).json({ image: `/images/${fileName}` });
     }
   })
