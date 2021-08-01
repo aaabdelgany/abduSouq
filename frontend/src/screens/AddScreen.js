@@ -45,7 +45,6 @@ const AddScreen = () => {
     };
     try {
       const { data } = await axios.post('/api/products/addNew', product);
-      console.log(data);
       setMessage('successfulAdd');
       setTimeout(() => setMessage(''), 15000);
     } catch (error) {
