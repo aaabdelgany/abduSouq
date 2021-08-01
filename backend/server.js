@@ -20,9 +20,6 @@ app.use(morgan('combined'));
 app.use('/api/products', prodRouter);
 app.use('/users', userRouter);
 app.use('/api/imgs', imageRouter);
-app.get('/', (req, res) => {
-  res.send('API is running!');
-});
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
