@@ -12,6 +12,8 @@ const ProductScreen = ({ match }) => {
   const prod = useSelector((state) =>
     state.products.find((p) => p._id === match.params.id)
   );
+  console.log(prod.image.slice(8, 13) === 'image');
+
   const submitReview = async (reviewValue) => {
     const reviewItem = { id: user.id, reviewValue };
     let rating =
