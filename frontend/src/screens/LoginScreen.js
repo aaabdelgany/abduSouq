@@ -52,10 +52,11 @@ const LoginScreen = () => {
           onChange={(event) => setPassword(event.target.value)}
         />
       </Form.Group>
-
-      <Button variant="primary" onClick={() => login()}>
-        Submit
-      </Button>
+      <div class="text-center">
+        <Button variant="primary" onClick={() => login()}>
+          Submit
+        </Button>
+      </div>
     </Form>
   );
 };

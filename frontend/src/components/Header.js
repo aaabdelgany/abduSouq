@@ -23,6 +23,7 @@ const Header = () => {
 
   const clearLog = () => {
     dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'CLEAR' });
     window.localStorage.removeItem('loggedIn');
   };
 
