@@ -43,6 +43,7 @@ const AddScreen = () => {
       image,
       user: user.id,
     };
+    console.log(product);
     try {
       const { data } = await axios.post('/api/products/addNew', product);
       setMessage('successfulAdd');

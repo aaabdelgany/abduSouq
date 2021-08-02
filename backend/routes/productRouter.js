@@ -31,7 +31,7 @@ prodRouter.post(
       const newProd = await product.save();
       res.json(newProd);
     } catch (error) {
-      res.json({ error });
+      res.status(400).send({ error });
     }
   })
 );
