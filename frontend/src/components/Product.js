@@ -3,11 +3,16 @@ import { Card } from 'react-bootstrap';
 import Rating from './Rating';
 import { Link } from 'react-router-dom';
 const Product = ({ prod }) => {
+  const placeholder = '/images/reacticon.jpeg';
+
   return (
     <div>
       <Card className="my-3 p-3 rounded" key={prod._id}>
         <Link to={`/products/${prod._id}`}>
-          <Card.Img variant="top" src={prod.image} />
+          <Card.Img
+            variant="top"
+            src={prod.image.slice(8, 13) === 'image' ? placeholder : prod.image}
+          />
         </Link>
         <Card.Body>
           <Link to={`/products/${prod._id}`}>

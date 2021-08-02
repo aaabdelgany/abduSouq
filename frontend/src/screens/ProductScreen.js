@@ -8,7 +8,7 @@ const ProductScreen = ({ match }) => {
   const user = JSON.parse(window.localStorage.getItem('loggedIn'));
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const placeholder = '/images/reacticon.jpeg';
   const prod = useSelector((state) =>
     state.products.find((p) => p._id === match.params.id)
   );
@@ -54,7 +54,11 @@ const ProductScreen = ({ match }) => {
       </Link>
       <Row>
         <Col md={6}>
-          <Image src={prod.image} alt={prod.name} fluid />
+          <Image
+            src={prod.image.slice(8, 13) === 'image' ? placeholder : prod.image}
+            alt={prod.name}
+            fluid
+          />
         </Col>
 
         <Col md={3}>
