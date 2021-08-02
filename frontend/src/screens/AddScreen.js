@@ -10,7 +10,7 @@ const AddScreen = () => {
   const [category, setCategory] = useState('');
   const [description, setDesc] = useState('');
   const [price, setPrice] = useState(0);
-  const [countInStock, setStock] = useState(0);
+  const [countInStock, setStock] = useState(1);
   const [image, setImage] = useState('');
 
   const history = useHistory();
