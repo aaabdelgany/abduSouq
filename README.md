@@ -6,3 +6,11 @@ The project has been deployed with Heroku and is accessible via the following UR
 https://abdusouq.herokuapp.com/
 
 Project Specifications: 1. Front end and backend authentication using jwt from scratch 2. Users can browse items for sale and view more information about each item. 3. Users can review items and can change their review. 4. Users can add items to their cart 5. Users can edit their cart to change the quantity of items or remove them from their cart. 6. Global State will persist upon refreshing the page 7. Users can edit the price and count in stock of their items that are for sale 8. Users can view all their items that are for sale 9. Users can add new items that are for sale
+
+Sample admin login:
+admin@example.com
+123456
+
+Sample regular user login:
+reg@example.com
+123456
