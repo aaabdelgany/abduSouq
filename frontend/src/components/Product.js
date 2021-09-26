@@ -14,9 +14,9 @@ const Product = ({ prod }) => {
             src={prod.image.slice(8, 13) === 'image' ? placeholder : prod.image}
           />
         </Link>
-        <Card.Body>
+        <Card.Body as="div">
           <Link to={`/products/${prod._id}`}>
-            <Card.Title>
+            <Card.Title as="div">
               <strong>{prod.name}</strong>
             </Card.Title>
           </Link>
@@ -27,7 +27,7 @@ const Product = ({ prod }) => {
               reviewFunc={() => void 0}
             />
           </Card.Text>
-          <Card.Text as="h3">{prod.price}</Card.Text>
+          <Card.Text as="h3">${prod.price}</Card.Text>
         </Card.Body>
       </Card>
     </div>
