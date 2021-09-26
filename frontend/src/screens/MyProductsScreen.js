@@ -40,6 +40,8 @@ const MyProductsScreen = () => {
       console.log(error);
     }
   };
+  const placeholder = '/images/reacticon.jpeg';
+
   return (
     <Row>
       <Col md={12}>
@@ -49,10 +51,19 @@ const MyProductsScreen = () => {
             <ListGroup.Item key={item._id}>
               <Row>
                 <Col md={2}>
-                  <Image src={item.image} alt={item.name} fluid rounded />
+                  <Image
+                    src={
+                      item.image.slice(8, 13) === 'image'
+                        ? placeholder
+                        : item.image
+                    }
+                    alt={item.name}
+                    fluid
+                    rounded
+                  />
                 </Col>
                 <Col md={3}>
-                  <Link to={`/product/${item.product}`}>{item.name}</Link>
+                  <Link to={`/products/${item._id}`}>{item.name}</Link>
                 </Col>
                 <Col md={3}>
                   <Form.Control
