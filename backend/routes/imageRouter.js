@@ -30,12 +30,10 @@ imageRouter.post(
       const fileName = `image${Math.floor(Math.random() * 10000)}${
         file.detectedFileExtension
       }`;
-      console.log('test');
       await pipeline(
         file.stream,
         fs.createWriteStream(`${__dirname}/frontend/public/images/${fileName}`)
       );
-      console.log('test2');
       res.status(200).json({ image: `/images/${fileName}` });
     }
   })
